@@ -1,10 +1,15 @@
 import './App.css';
-import Dashboard from './pages/admin/dashboard/Dashboard';
+import { BrowserRouter  as Router , Routes, Route } from 'react-router-dom';
+import AdminRoutes from './Routes/AdminRoutes';
 
 function App() {
   return (
     <div>
-      <Dashboard />
+      <Router>
+        <Routes>
+          <Route path='/admin/*' element={<AdminRoutes/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
