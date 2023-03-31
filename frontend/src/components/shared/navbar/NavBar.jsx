@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DrawerContex } from "../../../states/DrawerContex";
+import SideDrawer from "../drawer/SideDrawer";
 
 function NavBar() {
+    const { showDrawer } = useContext(DrawerContex);
   return (
     <nav className="py-3 box-border border-none sticky z-20 top-0 left-0 right-0">
-      <div className="flex justify-between items-center text-lg font-medium mx-auto px-8 max-w-[1500px]">
+        <SideDrawer/>
+      <div className="flex justify-between items-center text-lg font-medium mx-auto px-12 max-w-[1500px]">
         <ul className="flex items-center gap-x-2 sm:hidden">
-          <li>
-            <img src="/image/menu.svg" alt="" className="sm:hidden w-8 h-4" />
+          <li >
+            <img src="/image/menu.svg" alt="" className="sm:hidden w-8 h-4" onClick={() => {showDrawer()}} />
           </li>
           <li>
             <img

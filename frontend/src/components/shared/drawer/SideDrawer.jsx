@@ -1,28 +1,26 @@
-import { Button, Drawer } from "antd";
-import { useState } from "react";
+import { Drawer } from "antd";
+import { DrawerContex } from "../../../states/DrawerContex";
+import React, { useContext } from "react";
 
 function SideDrawer() {
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
+  const { open, setOpen } = useContext(DrawerContex);
   const onClose = () => {
     setOpen(false);
   };
   return (
     <>
-      <Button type="primary" onClick={showDrawer}>
-        Open
-      </Button>
       <Drawer
-        title="Basic Drawer"
-        placement="right"
+        placement="left"
         onClose={onClose}
+        closable={false}
         open={open}
+        width={200}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <div className="mt-5 p-4">
+          <p className="pt-2"><button className="border-2 rounded border-black px-3 py-0 cursor-pointer">Register</button></p>
+          <p className="pt-2 pl-2">Join</p>
+          <p className="pt-2 pl-2">Explore</p>
+        </div>
       </Drawer>
     </>
   );
