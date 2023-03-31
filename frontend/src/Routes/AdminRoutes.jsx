@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import Vendors from '../pages/admin/add_vendors/Vendors';
 import AdminLogin from '../pages/admin/admin_login/AdminLogin';
 import Dashboard from '../pages/admin/dashboard/Dashboard';
 
@@ -9,7 +10,8 @@ function AdminRoutes() {
         <Routes>
             <Route path='/' element={<AdminLogin />} />
             <Route path='/dashboard' element={<Dashboard/>}  />
-        </Routes>
+            <Route path='/addVendor' element={<Vendors />} />
+        </Routes> 
 
     </div>
   )
