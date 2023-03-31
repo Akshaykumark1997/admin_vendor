@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Validate from "../../shared/register_validation/RegisterValidation";
+import axios from "../../../axios/Axios";
+import { message } from "antd";
 
 function Registration() {
   const [formValues, setFormValues] = useState({
@@ -13,6 +15,7 @@ function Registration() {
     image: null,
   });
   const [error, setError] = useState({});
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -25,11 +28,35 @@ function Registration() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData();
+    data.append("firstName", formValues.firstName);
+    data.append("lastName", formValues.lastName);
+    data.append("email", formValues.email);
+    data.append("phone", formValues.phone);
+    data.append("password", formValues.password);
+    data.append("bussinessName", formValues.bussinessName);
+    data.append("image", formValues.image);
     const errors = Validate(formValues);
     if (Object.keys(errors).length !== 0) {
       setError(errors);
       console.log(error);
     } else {
+      axios
+        .post("/register", data)
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            navigate("/");
+            message.success("registered successfully login to continue");
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          setError(error?.response?.data?.errors);
+          if (error?.response?.data?.message) {
+            message.error(error?.response?.data?.message)
+          }
+        });
     }
   };
   return (
@@ -58,7 +85,11 @@ function Registration() {
                     value={formValues.firstName}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                  <span className="block text-red-600">{error.firstName}</span>
+                  {error && (
+                    <span className="block text-red-600">
+                      {error.firstName}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4">
                   <input
@@ -69,7 +100,9 @@ function Registration() {
                     value={formValues.lastName}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                <span className="text-red-600 block">{error.lastName}</span>
+                  {error && (
+                    <span className="text-red-600 block">{error.lastName}</span>
+                  )}
                 </div>
                 <div className="mb-4">
                   <input
@@ -80,7 +113,9 @@ function Registration() {
                     value={formValues.email}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                <span className="text-red-600 block">{error.email}</span>
+                  {error && (
+                    <span className="text-red-600 block">{error.email}</span>
+                  )}
                 </div>
                 <div className="mb-4">
                   <input
@@ -91,18 +126,22 @@ function Registration() {
                     value={formValues.phone}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                <span className="text-red-600 block">{error.phone}</span>
+                  {error && (
+                    <span className="text-red-600 block">{error.phone}</span>
+                  )}
                 </div>
                 <div className="mb-4">
                   <input
-                    type="text"
+                    type="password"
                     placeholder="password"
                     name="password"
                     onChange={handleChange}
                     value={formValues.password}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                <span className="text-red-600 block">{error.password}</span>
+                  {error && (
+                    <span className="text-red-600 block">{error.password}</span>
+                  )}
                 </div>
                 <div className="mb-4">
                   <input
@@ -113,7 +152,11 @@ function Registration() {
                     value={formValues.bussinessName}
                     className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
-                <span className="text-red-600 block">{error.bussinessName}</span>
+                  {error && (
+                    <span className="text-red-600 block">
+                      {error.bussinessName}
+                    </span>
+                  )}
                 </div>
                 <div className="mb-4 pt-3 text-center mr-2">
                   <label
@@ -130,7 +173,7 @@ function Registration() {
                     Choose image
                   </label>
                 </div>
-                  <span className="text-red-600">{error.image}</span>
+                {error && <span className="text-red-600">{error.image}</span>}
 
                 <div className="my-6 text-center">
                   <button
