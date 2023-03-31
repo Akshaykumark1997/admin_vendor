@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const validateRegister = require('../validation/registerValidation');
 const User = require('../model/userSchema');
@@ -52,6 +52,55 @@ module.exports = {
             });
         });
       }
+    });
+  },
+  login: (req, res) => {
+    console.log(req.body);
+    User.findOne({ email: req.body.email }).then((user) => {
+      console.log(user);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found please register to continue',
+        });
+      }
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((isMatch) => {
+          if (isMatch) {
+            const payload = {
+              id: user._id,
+            };
+            jwt.sign(
+              payload,
+              process.env.SECRET || 'secret',
+              {
+                expiresIn: 36000,
+              },
+              (err, token) => {
+                if (err) console.error('There is some error in token', err);
+                else {
+                  res.json({
+                    success: true,
+                    token: `Bearer ${token}`,
+                  });
+                }
+              }
+            );
+          } else {
+            res.status(401).json({
+              success: false,
+              error: 'Incorrect Password',
+            });
+          }
+        })
+        .catch((errors) => {
+          res.status(401).json({
+            success: false,
+            errors,
+            error: 'Incorrect Password',
+          });
+        });
     });
   },
 };
