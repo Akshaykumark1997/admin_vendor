@@ -4,12 +4,10 @@ import axios from "../../../axios/Axios";
 function ViewVendors() {
   const [vendors, setVendors] = useState([]);
   useEffect(() => {
-    axios.get('/vendors').then((response) => {
-      console.log(response.data);
+    axios.get("/admin/vendors").then((response) => {
       setVendors(response.data.vendors);
-      console.log(vendors);
-    })
-  },[vendors])
+    });
+  }, []);
   return (
     <div>
       <div className="p-6 sm:text-2xl text-sm font-bold">
@@ -26,12 +24,18 @@ function ViewVendors() {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b">
-              <th className="border px-6 py-4 font-normal">1</th>
-              <th className="border px-6 py-4 font-normal">AkshayKumarK</th>
-              <th className="border px-6 py-4 font-normal">akshayajith05@gmail.com</th>
-              <th className="border px-6 py-4 font-normal">9744549400</th>
+              {vendors.map((ele, index) => (
+            <tr className="border-b" key={ele._id}>
+                  <th className="border px-6 py-4 font-normal" >
+                    {index + 1}
+                  </th>
+                  <th className="border px-6 py-4 font-normal">{ele.firstName + ele.lastName}</th>
+                  <th className="border px-6 py-4 font-normal">
+                    {ele.email}
+                  </th>
+                  <th className="border px-6 py-4 font-normal">{ele.phone}</th>
             </tr>
+              ))}
           </tbody>
         </table>
       </div>

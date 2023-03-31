@@ -30,6 +30,12 @@ function NavBar() {
               </li>
             ))}
           </ul>
+          <ul className="pt-12">
+            <li className="flex rounded-md p-4 cursor-pointer hover:bg-light-white text-gray-300 text-lg items-center">
+              <img src="/image/logout.svg" alt="text" className="hover:bg-light-white w-6" />
+              <span className="hidden md:block px-2">Logout</span>
+            </li>
+          </ul>
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 const dotenv = require('dotenv');
 const validateRegister = require('../validation/registerValidation');
-const User = require('../model/userSchema');
+const Vendor = require('../model/vendorsSchema');
 
 dotenv.config();
 
@@ -17,15 +17,15 @@ module.exports = {
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    User.findOne({ email: req.body.email }).then((user) => {
-      if (user) {
+    Vendor.findOne({ email: req.body.email }).then((vendor) => {
+      if (vendor) {
         res.status(409).json({
           success: false,
           message: 'Already registerd',
         });
       } else {
         bcrypt.hash(req.body.password, 10, (er, hash) => {
-          User.create({
+          Vendor.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -33,10 +33,10 @@ module.exports = {
             password: hash,
             bussinessName: req.body.bussinessName,
           })
-            .then((userData) => {
+            .then((vendorData) => {
               image.mv(
                 path.join(__dirname, '../public/bussiness_images/') +
-                  userData._id +
+                  vendorData._id +
                   '.jpg',
                 (err) => {
                   if (!err) {
@@ -58,20 +58,19 @@ module.exports = {
     });
   },
   login: (req, res) => {
-    User.findOne({ email: req.body.email }).then((user) => {
-      console.log(user);
-      if (!user) {
+    Vendor.findOne({ email: req.body.email }).then((vendor) => {
+      if (!vendor) {
         return res.status(404).json({
           success: false,
           message: 'User not found please register to continue',
         });
       }
       bcrypt
-        .compare(req.body.password, user.password)
+        .compare(req.body.password, vendor.password)
         .then((isMatch) => {
           if (isMatch) {
             const payload = {
-              id: user._id,
+              id: vendor._id,
             };
             jwt.sign(
               payload,
