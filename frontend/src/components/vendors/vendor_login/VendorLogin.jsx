@@ -20,12 +20,12 @@ function VendorLogin() {
     const errors = Validate(formValues);
     if (Object.keys(errors).length !== 0) {
       setError(errors);
-      console.log(error);
     } else {
       axios
         .post("/login", formValues)
-        .then(() => {
-          navigate("/home");
+        .then((response) => {
+          localStorage.setItem("vendorToken", response.data.token);
+          navigate("/");
         })
         .catch((errors) => {
           setError({ ...error, password: errors.response.data.error });

@@ -39,22 +39,19 @@ function Registration() {
     const errors = Validate(formValues);
     if (Object.keys(errors).length !== 0) {
       setError(errors);
-      console.log(error);
     } else {
       axios
         .post("/register", data)
         .then((response) => {
-          console.log(response.data);
           if (response.data.success) {
             navigate("/");
             message.success("registered successfully login to continue");
           }
         })
         .catch((error) => {
-          console.log(error.response.data);
           setError(error?.response?.data?.errors);
           if (error?.response?.data?.message) {
-            message.error(error?.response?.data?.message)
+            message.error(error?.response?.data?.message);
           }
         });
     }
