@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function VendorLogin() {
   return (
@@ -13,23 +14,31 @@ function VendorLogin() {
               <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                 <div className="mb-4 md:flex md:justify-center">
                   <input
-                  type="text"
-                  placeholder='Email'
-                  className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
+                    type="text"
+                    placeholder="Email"
+                    className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
                   />
                 </div>
                 <div className="mb-4 md:flex md:justify-center">
                   <input
-                  type="text"
-                  placeholder='Password'
-                  className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10"
+                    type="text"
+                    placeholder="Password"
+                    className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10"
                   />
                 </div>
 
                 <div className="my-6 text-center">
-                  <button type="submit" className="md:w-3/4 w-full h-10 bg-[#007cff] rounded-md text-white">submit</button>
+                  <button
+                    type="submit"
+                    className="md:w-3/4 w-full h-10 bg-[#007cff] rounded-md text-white"
+                  >
+                    submit
+                  </button>
                 </div>
               </form>
+              <div className="text-center">
+                <p>Don't have Account?<Link to="/register"><span className="text-red-700 font-bold font-sans"> Sign In</span></Link></p>
+              </div>
             </div>
             <div
               className="w-full h-auto bg-text hidden md:block md:w-1/3 bg-contain bg-center bg-no-repeat rounded-l-lg bg-white"
@@ -39,7 +48,7 @@ function VendorLogin() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default VendorLogin
+export default VendorLogin;

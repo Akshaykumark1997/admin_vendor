@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { DrawerContex } from "../../../states/DrawerContex";
 import SideDrawer from "../drawer/SideDrawer";
+import { Link } from "react-router-dom";
 
 function NavBar() {
     const { showDrawer } = useContext(DrawerContex);
@@ -32,12 +33,12 @@ function NavBar() {
         </ul>
         <ul className="flex justify-between items-center sm:gap-x-10 gap-x-4">
           <li className="text-sm md:text-lg cursor-pointer">
-            <button>Register</button>
+           <Link to="/register"><button>Register</button></Link> 
           </li>
           <li className="text-sm md:text-lg hidden sm:block">
-            <button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white">
+           <Link to="/"><button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white">
               Login
-            </button>
+            </button></Link> 
           </li>
         </ul>
       </div>
