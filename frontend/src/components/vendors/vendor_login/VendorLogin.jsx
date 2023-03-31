@@ -14,13 +14,15 @@ function VendorLogin() {
                 <div className="mb-4 md:flex md:justify-center">
                   <input
                   type="text"
-                  className="border-2 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
+                  placeholder='Email'
+                  className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
                   />
                 </div>
                 <div className="mb-4 md:flex md:justify-center">
                   <input
                   type="text"
-                  className="border-2 border-solid border-gray-300 focus:border-red-600 rounded focus:outline-none md:w-3/4 w-full h-10"
+                  placeholder='Password'
+                  className="border-2 px-3 text-grey-700 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10"
                   />
                 </div>
 
