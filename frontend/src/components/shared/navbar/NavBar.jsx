@@ -5,7 +5,7 @@ import SideDrawer from "../drawer/SideDrawer";
 function NavBar() {
     const { showDrawer } = useContext(DrawerContex);
   return (
-    <nav className="py-3 box-border border-none sticky z-20 top-0 left-0 right-0">
+    <nav className="py-3 box-border border-none sticky z-20 top-0 left-0 right-0 bg-white shadow-none">
         <SideDrawer/>
       <div className="flex justify-between items-center text-lg font-medium mx-auto px-12 max-w-[1500px]">
         <ul className="flex items-center gap-x-2 sm:hidden">
@@ -35,7 +35,7 @@ function NavBar() {
             <button>Register</button>
           </li>
           <li className="text-sm md:text-lg hidden sm:block">
-            <button className="border-2 rounded border-black px-3 py-0 cursor-pointer">
+            <button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white">
               Login
             </button>
           </li>
