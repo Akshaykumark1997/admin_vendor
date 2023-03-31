@@ -4,14 +4,21 @@ import SideDrawer from "../drawer/SideDrawer";
 import { Link } from "react-router-dom";
 
 function NavBar() {
-    const { showDrawer } = useContext(DrawerContex);
+  const { showDrawer } = useContext(DrawerContex);
   return (
     <nav className="py-3 box-border border-none sticky z-20 top-0 left-0 right-0 bg-white shadow-none">
-        <SideDrawer/>
+      <SideDrawer />
       <div className="flex justify-between items-center text-lg font-medium mx-auto px-12 max-w-[1500px]">
         <ul className="flex items-center gap-x-2 sm:hidden">
-          <li >
-            <img src="/image/menu.svg" alt="" className="sm:hidden w-8 h-4" onClick={() => {showDrawer()}} />
+          <li>
+            <img
+              src="/image/menu.svg"
+              alt=""
+              className="sm:hidden w-8 h-4"
+              onClick={() => {
+                showDrawer();
+              }}
+            />
           </li>
           <li>
             <img
@@ -33,12 +40,16 @@ function NavBar() {
         </ul>
         <ul className="flex justify-between items-center sm:gap-x-10 gap-x-4">
           <li className="text-sm md:text-lg cursor-pointer">
-           <Link to="/register"><button>Register</button></Link> 
+            <Link to="/register">
+              <button>Register</button>
+            </Link>
           </li>
           <li className="text-sm md:text-lg hidden sm:block">
-           <Link to="/"><button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white">
-              Login
-            </button></Link> 
+            <Link to="/">
+              <button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white hover:border-none">
+                Login
+              </button>
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../../../axios/Axios";
+import { message } from "antd";
+import Validate from "../../shared/login_validation/LoginValidation";
 
 function Login() {
+    const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState({});
+  const navigate = useNavigate();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const errors = Validate(formValues);
+    if (Object.keys(errors).length !== 0) {
+      setError(errors);
+    } else {
+      axios
+        .post("/admin/login", formValues)
+        .then((response) => {
+          localStorage.setItem("tokenAdmin", response.data.token);
+          navigate("/admin/dashboard");
+        })
+        .catch((errors) => {
+          setError({ ...error, password: errors.response.data.error });
+          if (errors?.response?.data?.message) {
+            message.error(errors?.response?.data?.message);
+          }
+        });
+    }
+  };
   return (
-<div className="w-full">
+    <div className="w-full">
       <div className="py-10 px-5 sm:p-10 max-w-[1500px] mx-auto box-border">
         <div className="flex justify-center px-2 sm:px-4 md:px-2 my-12">
           <div className="w-full xl:w-2/3 lg:w-3/4 flex h-[450px] rounded-lg px-2 shadow-lg border">
@@ -14,24 +48,41 @@ function Login() {
               <h3 className="pt-4 md:text-2xl text-lg font-bold text-center">
                 Hi, Welcome back
               </h3>
-              <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                <div className="mb-4 md:flex md:justify-center">
+              <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded" onSubmit={handleSubmit}>
+                <div className="mb-4">
                   <input
-                  type="text"
-                  placeholder="Email"
-                  className="px-3 text-grey-700 border-2 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    onChange={handleChange}
+                    value={formValues.email}
+                    className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
+                  {error && (
+                    <span className="text-red-600 block">{error.email}</span>
+                  )}
                 </div>
-                <div className="mb-4 md:flex md:justify-center">
+                <div className="mb-4">
                   <input
-                  type="text"
-                  placeholder="password"
-                  className="px-3 text-grey-700 border-2 border-solid rounded border-gray-300 focus:border-red-600 focus:outline-none md:w-3/4 w-full h-10 "
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    onChange={handleChange}
+                    value={formValues.password}
+                    className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
                   />
+                  {error && (
+                    <span className="text-red-600 block">{error.password}</span>
+                  )}
                 </div>
 
                 <div className="my-6 text-center">
-                  <button type="submit" className="md:w-3/4 w-full h-10 bg-[#007cff] rounded-md text-white">submit</button>
+                  <button
+                    type="submit"
+                    className="md:w-3/4 w-full h-10 bg-[#007cff] rounded-md text-white"
+                  >
+                    submit
+                  </button>
                 </div>
               </form>
             </div>

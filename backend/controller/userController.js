@@ -4,8 +4,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const dotenv = require('dotenv');
 const validateRegister = require('../validation/registerValidation');
 const User = require('../model/userSchema');
+
+dotenv.config();
 
 module.exports = {
   signUp: (req, res) => {
@@ -21,7 +24,7 @@ module.exports = {
           message: 'Already registerd',
         });
       } else {
-        bcrypt.hash(req.body.password, 10, (hash) => {
+        bcrypt.hash(req.body.password, 10, (er, hash) => {
           User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -55,7 +58,6 @@ module.exports = {
     });
   },
   login: (req, res) => {
-    console.log(req.body);
     User.findOne({ email: req.body.email }).then((user) => {
       console.log(user);
       if (!user) {

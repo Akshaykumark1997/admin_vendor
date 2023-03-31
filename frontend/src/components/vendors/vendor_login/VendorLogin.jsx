@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../axios/Axios";
 import { message } from "antd";
-import Validate from "./LoginValidation";
+import Validate from "../../shared/login_validation/LoginValidation";
 
 function VendorLogin() {
   const [formValues, setFormValues] = useState({

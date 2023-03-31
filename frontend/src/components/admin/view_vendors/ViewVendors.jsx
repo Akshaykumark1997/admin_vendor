@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../../axios/Axios";
 
 function ViewVendors() {
+  const [vendors, setVendors] = useState([]);
+  useEffect(() => {
+    axios.get('/vendors').then((response) => {
+      console.log(response.data);
+      setVendors(response.data.vendors);
+      console.log(vendors);
+    })
+  },[vendors])
   return (
     <div>
       <div className="p-6 sm:text-2xl text-sm font-bold">
