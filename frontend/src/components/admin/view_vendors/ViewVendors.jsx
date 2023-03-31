@@ -3,7 +3,7 @@ import React from "react";
 function ViewVendors() {
   return (
     <div>
-      <div className="p-6 text-2xl font-bold">
+      <div className="p-6 sm:text-2xl text-sm font-bold">
         <h1>Vendors</h1>
       </div>
       <div className="md:flex justify-center md:items-center md:px-6 pt-4 px-2 overflow-x-auto">
