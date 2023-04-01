@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "../../../axios/AdminAxios";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function ViewVendors() {
   const [vendors, setVendors] = useState([]);
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const showModal = (vendorId) => {
@@ -19,10 +22,17 @@ function ViewVendors() {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    axios.get("/admin/vendors").then((response) => {
-      console.log(response.data.vendors);
-      setVendors(response.data.vendors);
-    });
+    axios
+      .get("/admin/vendors")
+      .then((response) => {
+        setVendors(response.data.vendors);
+      })
+      .catch((error) => {
+        if (error.response.data.token) {
+          navigate("/admin");
+          message.error("Session expired please  login to continue");
+        }
+      });
   }, []);
   return (
     <div>

@@ -53,6 +53,10 @@ function AddVendor() {
           if (error?.response?.data?.message) {
             message.error(error?.response?.data?.message);
           }
+          if(error.response.data.token) {
+            navigate("/admin");
+            message.error("Session expired please  login to continue");
+          }
         });
     }
   };

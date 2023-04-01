@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Modal, message } from "antd";
 import Validate from "./ValidateService";
 import axios from "../../../axios/Axios";
+import { useNavigate } from "react-router-dom";
 
 function Service() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [services, setServices] = useState([]);
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     service: "",
     price: "",
@@ -40,6 +43,10 @@ function Service() {
         })
         .catch((error) => {
           message.error(error?.response?.data?.message);
+          if (error.response.data.token) {
+            navigate("/admin");
+            message.error("Session expired please  login to continue");
+          }
         });
     }
   };
@@ -50,7 +57,10 @@ function Service() {
         setServices(response.data.services);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.data.token) {
+          navigate("/admin");
+          message.error("Session expired please  login to continue");
+        }
       });
   }, []);
   const handleCancel = () => {
@@ -107,10 +117,15 @@ function Service() {
           >
             <h2 className="font-bold text-xs md:text-lg">
               Service:{" "}
-              <span className="font-normal text-xs md:text-lg">{ele.services.service}</span>
+              <span className="font-normal text-xs md:text-lg">
+                {ele.services.service}
+              </span>
             </h2>
             <h2 className="font-bold">
-              Price: <span className="font-normal text-xs md:text-lg">₹{ele.services.price}</span>
+              Price:{" "}
+              <span className="font-normal text-xs md:text-lg">
+                ₹{ele.services.price}
+              </span>
             </h2>
           </div>
         ))}
