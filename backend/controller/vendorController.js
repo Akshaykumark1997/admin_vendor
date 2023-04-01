@@ -3,6 +3,7 @@
 /* eslint-disable consistent-return */
 const bcrypt = require('bcrypt');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 const Vendor = require('../model/vendorsSchema');
 const validateRegister = require('../validation/registerValidation');
 
@@ -22,7 +23,7 @@ module.exports = {
         });
       });
   },
-  addVendor: (req, res) => {
+  signup: (req, res) => {
     const { image } = req.files;
     const { errors, isValid } = validateRegister(req.body);
     if (!isValid) {
@@ -67,6 +68,53 @@ module.exports = {
             });
         });
       }
+    });
+  },
+  login: (req, res) => {
+    Vendor.findOne({ email: req.body.email }).then((vendor) => {
+      if (!vendor) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found please register to continue',
+        });
+      }
+      bcrypt
+        .compare(req.body.password, vendor.password)
+        .then((isMatch) => {
+          if (isMatch) {
+            const payload = {
+              id: vendor._id,
+            };
+            jwt.sign(
+              payload,
+              process.env.SECRET || 'secret',
+              {
+                expiresIn: 36000,
+              },
+              (err, token) => {
+                if (err) console.error('There is some error in token', err);
+                else {
+                  res.json({
+                    success: true,
+                    token: `Bearer ${token}`,
+                  });
+                }
+              }
+            );
+          } else {
+            res.status(401).json({
+              success: false,
+              error: 'Incorrect Password',
+            });
+          }
+        })
+        .catch((errors) => {
+          res.status(401).json({
+            success: false,
+            errors,
+            error: 'Incorrect Password',
+          });
+        });
     });
   },
 };

@@ -45,6 +45,7 @@ function AddVendor() {
         .then((response) => {
           if (response.data.success) {
             navigate("/admin/dashboard");
+            message.success("vendor added successfully");
           }
         })
         .catch((error) => {

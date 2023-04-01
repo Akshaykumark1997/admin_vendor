@@ -1,6 +1,15 @@
-import React from "react";
+import axios from "../../../axios/Axios";
+import React, { useEffect, useState } from "react";
 
 function Profile() {
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        axios.get('/userDetails').then((response) => {
+            setUser(response.data.user);
+        }).catch((error) => {
+            console.log(error);
+        })
+    },[])
   return (
     <div className="max-w-[1400px] py-16 mx-auto px-5 sm:px-20 ">
       <div className="flex justify-between flex-col items-center md:flex-row">
@@ -28,21 +37,21 @@ function Profile() {
               <div className="grid lg:grid-cols-2 text-sm">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">First Name</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">Jane</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{user.firstName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Last Name</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">Doe</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{user.lastName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email</div>
                   <div className="px-4 py-2 text-xs sm:text-sm break-words">
-                    akshaykumar12@gmail.com
+                    {user.email}
                   </div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Contact No.</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">+11 998001001</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{user.phone}</div>
                 </div>
               </div>
             </div>

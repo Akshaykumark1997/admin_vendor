@@ -24,10 +24,12 @@ function VendorLogin() {
       axios
         .post("/login", formValues)
         .then((response) => {
+          console.log(response.data);
           localStorage.setItem("vendorToken", response.data.token);
           navigate("/home");
         })
         .catch((errors) => {
+          console.log(errors);
           setError({ ...error, password: errors.response.data.error });
           if (errors?.response?.data?.message) {
             message.error(errors?.response?.data?.message);
