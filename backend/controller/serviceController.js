@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-// const Service = require('../model/serviceSchema');
 const Vendor = require('../model/vendorsSchema');
 const validateService = require('../validation/serviceValidation');
 
