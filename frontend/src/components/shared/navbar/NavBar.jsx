@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
 import { DrawerContex } from "../../../states/DrawerContex";
 import SideDrawer from "../drawer/SideDrawer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
+  const token = localStorage.getItem("vendorToken");
+  const navigate = useNavigate();
   const { showDrawer } = useContext(DrawerContex);
+  const handleLogout = () => {
+    localStorage.removeItem("vendorToken");
+    navigate("/");
+  };
   return (
     <nav className="py-3 box-border border-none sticky z-20 top-0 left-0 right-0 bg-white shadow-none">
       <SideDrawer />
@@ -39,18 +45,31 @@ function NavBar() {
           <li className="text-sm md:text-lg hidden sm:block">Explore</li>
         </ul>
         <ul className="flex justify-between items-center sm:gap-x-10 gap-x-4">
-          <li className="text-sm md:text-lg cursor-pointer">
-            <Link to="/register">
-              <button>Register</button>
-            </Link>
-          </li>
-          <li className="text-sm md:text-lg hidden sm:block">
-            <Link to="/">
-              <button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white hover:border-none">
-                Login
+          {token ? (
+            <li className="text-sm md:text-lg cursor-pointer">
+              <button
+                className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white hover:border-none"
+                onClick={handleLogout}
+              >
+                Logout
               </button>
-            </Link>
-          </li>
+            </li>
+          ) : (
+            <>
+              <li className="text-sm md:text-lg cursor-pointer">
+                <Link to="/register">
+                  <button>Register</button>
+                </Link>
+              </li>
+              <li className="text-sm md:text-lg hidden sm:block">
+                <Link to="/">
+                  <button className="border-2 rounded border-black px-3 py-0 w-24 cursor-pointer hover:bg-[#007cff] hover:text-white hover:border-none">
+                    Login
+                  </button>
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

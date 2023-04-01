@@ -25,7 +25,7 @@ function VendorLogin() {
         .post("/login", formValues)
         .then((response) => {
           localStorage.setItem("vendorToken", response.data.token);
-          navigate("/");
+          navigate("/home");
         })
         .catch((errors) => {
           setError({ ...error, password: errors.response.data.error });
