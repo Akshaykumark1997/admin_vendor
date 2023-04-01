@@ -117,4 +117,24 @@ module.exports = {
         });
     });
   },
+  getVendor: (req, res) => {
+    const token = req.headers.authorization;
+    const decoded = jwt.verify(
+      token.split(' ')[1],
+      process.env.SECRET || 'secret'
+    );
+    Vendor.findOne({ _id: decoded.id })
+      .then((vendor) => {
+        res.json({
+          success: true,
+          vendor,
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          success: false,
+          error,
+        });
+      });
+  },
 };

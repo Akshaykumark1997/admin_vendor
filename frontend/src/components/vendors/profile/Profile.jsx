@@ -2,10 +2,10 @@ import axios from "../../../axios/Axios";
 import React, { useEffect, useState } from "react";
 
 function Profile() {
-    const [user, setUser] = useState({});
+    const [vendor, setVendor] = useState({});
     useEffect(() => {
-        axios.get('/userDetails').then((response) => {
-            setUser(response.data.user);
+        axios.get('/vendorDetails').then((response) => {
+            setVendor(response.data.vendor);
         }).catch((error) => {
             console.log(error);
         })
@@ -37,21 +37,21 @@ function Profile() {
               <div className="grid lg:grid-cols-2 text-sm">
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">First Name</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">{user.firstName}</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{vendor.firstName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Last Name</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">{user.lastName}</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{vendor.lastName}</div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Email</div>
                   <div className="px-4 py-2 text-xs sm:text-sm break-words">
-                    {user.email}
+                    {vendor.email}
                   </div>
                 </div>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Contact No.</div>
-                  <div className="px-4 py-2 text-xs sm:text-sm">{user.phone}</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">{vendor.phone}</div>
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@ function Profile() {
           <div>
             <div className="flex flex-col text-center items-center">
               <img
-                src="/image/logo1.png"
+                src={`http://localhost:8000/bussiness_images/${vendor._id}.jpg`}
                 alt=""
                 className="md:w-full lg:w-48 min-[760px]:w-88"
               />
