@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 function NavBar() {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem("tokenAdmin");
+    localStorage.removeItem("adToken");
     navigate("/admin");
   }
   return (

@@ -102,15 +102,15 @@ function Service() {
       {services.length !== 0 &&
         services.map((ele) => (
           <div
-            className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center"
+            className="border border-gray-200 sm:m-10 m-4 flex justify-around h-28 items-center"
             key={ele.services._id}
           >
-            <h2 className="font-bold">
+            <h2 className="font-bold text-xs md:text-lg">
               Service:{" "}
-              <span className="font-normal">{ele.services.service}</span>
+              <span className="font-normal text-xs md:text-lg">{ele.services.service}</span>
             </h2>
             <h2 className="font-bold">
-              Price: <span className="font-normal">₹{ele.services.price}</span>
+              Price: <span className="font-normal text-xs md:text-lg">₹{ele.services.price}</span>
             </h2>
           </div>
         ))}

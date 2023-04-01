@@ -25,7 +25,7 @@ function Login() {
       axios
         .post("/admin/login", formValues)
         .then((response) => {
-          localStorage.setItem("tokenAdmin", response.data.token);
+          localStorage.setItem("adToken", response.data.token);
           navigate("/admin/dashboard");
         })
         .catch((errors) => {
@@ -37,7 +37,7 @@ function Login() {
     }
   };
     useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const token = localStorage.getItem("adToken");
     if(token) {
       navigate('/admin/dashboard');
     }

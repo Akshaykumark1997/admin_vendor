@@ -11,7 +11,7 @@ function Profile() {
         })
     },[])
   return (
-    <div className="max-w-[1400px] py-16 mx-auto px-5 sm:px-20 ">
+    <div className="max-w-[1400px] py-24 mx-auto px-5 sm:px-20 ">
       <div className="flex justify-between flex-col items-center md:flex-row">
         <div className="w-full md:w-[65%] min-[875px]:w-[85%]">
           <h1>Hi, Akshay</h1>
