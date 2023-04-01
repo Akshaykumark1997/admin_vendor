@@ -28,7 +28,7 @@ function ViewVendors() {
         setVendors(response.data.vendors);
       })
       .catch((error) => {
-        if (error.response.data.token) {
+        if (!error.response.data.token) {
           navigate("/admin");
           message.error("Session expired please  login to continue");
         }

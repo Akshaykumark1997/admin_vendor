@@ -43,7 +43,7 @@ function Service() {
         })
         .catch((error) => {
           message.error(error?.response?.data?.message);
-          if (error.response.data.token) {
+          if (!error.response.data.token) {
             navigate("/admin");
             message.error("Session expired please  login to continue");
           }
@@ -57,7 +57,7 @@ function Service() {
         setServices(response.data.services);
       })
       .catch((error) => {
-        if (error.response.data.token) {
+        if (!error.response.data.token) {
           navigate("/admin");
           message.error("Session expired please  login to continue");
         }

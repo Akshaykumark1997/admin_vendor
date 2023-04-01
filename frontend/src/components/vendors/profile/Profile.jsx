@@ -14,7 +14,7 @@ function Profile() {
         setVendor(response.data.vendor);
       })
       .catch((error) => {
-        if (error.response.data.token) {
+        if (!error.response.data.token) {
           navigate("/");
           message.error("Session expired please  login to continue");
         }
