@@ -20,6 +20,7 @@ function ViewVendors() {
   };
   useEffect(() => {
     axios.get("/admin/vendors").then((response) => {
+      console.log(response.data.vendors);
       setVendors(response.data.vendors);
     });
   }, []);
@@ -68,21 +69,46 @@ function ViewVendors() {
             style: { background: "#007cff", color: "white" },
           }}
         >
-          <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center">
-            <h2 className="font-bold">
-              Service:{" "}
-              <span className="font-normal">
-                {
-                  vendors.find((vendor) => vendor._id === selectedVendor)
-                    .bussinessName
-                }
-              </span>
-            </h2>
-            <img
-              src={`http://localhost:8000/bussiness_images/${selectedVendor}.jpg`}
-              alt=""
-              className="w-32"
-            />
+          <div>
+            <h1 className="text-xl text-center text-red-600 font-bold">
+              Bussiness Details
+            </h1>
+            <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center">
+              <h2 className="font-bold">
+                Bussiness Name:{" "}
+                <span className="font-normal">
+                  {
+                    vendors.find((vendor) => vendor._id === selectedVendor)
+                      .bussinessName
+                  }
+                </span>
+              </h2>
+              <img
+                src={`http://localhost:8000/bussiness_images/${selectedVendor}.jpg`}
+                alt=""
+                className="w-32"
+              />
+            </div>
+          </div>
+          <div className="overflow-scroll h-48 overflow-x-hidden">
+            <h1 className="text-xl text-center text-red-600 font-bold">
+              Services
+            </h1>
+            {vendors
+              .find((vendor) => vendor._id === selectedVendor)
+              .services.map((ele) => (
+                <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center">
+                  <div key={ele._id}>
+                    <h2 className="font-bold">
+                      Service:{" "}
+                      <span className="font-normal">{ele.service}</span>
+                    </h2>
+                    <h2 className="font-bold">
+                      Price: <span className="font-normal">₹{ele.price}</span>
+                    </h2>
+                  </div>
+                </div>
+              ))}
           </div>
           <div className="flex justify-end">
             <button

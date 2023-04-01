@@ -27,6 +27,12 @@ const vendorSchema = new Schema({
     type: String,
     required: true,
   },
+  services: [
+    {
+      service: String,
+      price: Number,
+    },
+  ],
 });
 
 const vendor = mongoose.model('vendors', vendorSchema);

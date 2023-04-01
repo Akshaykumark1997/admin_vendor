@@ -35,6 +35,7 @@ function Service() {
         .post("/addService", formValues)
         .then((response) => {
           message.success(response.data.message);
+          setFormValues({ ...formValues, service: "", price: "" });
           setIsModalOpen(false);
         })
         .catch((error) => {
@@ -46,24 +47,27 @@ function Service() {
     axios
       .get("/getServices")
       .then((response) => {
-        setServices(response.data.services); 
+        setServices(response.data.services);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [services]);
+  }, []);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   return (
     <div className="mx-auto sm:w-[50%] md:w-[50%] lg:w-[50%] w-72">
       <div className="flex justify-end m-10">
-        <button
-          className="md:w-32 md:h-10 w-28 h-8 border border-gray-400 rounded bg-green-500 text-white"
-          onClick={showModal}
-        >
-          Add Service
-        </button>
+        {services.length !== 0 && (
+          <button
+            className="md:w-32 md:h-10 w-28 h-8 border border-gray-400 rounded bg-green-500 text-white"
+            onClick={showModal}
+          >
+            Add Service
+          </button>
+        )}
+
         <Modal
           title="Add Vendor"
           centered
@@ -95,16 +99,32 @@ function Service() {
           </div>
         </Modal>
       </div>
-      {services.map((ele) => (
-        <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center" key={ele._id}>
-          <h2 className="font-bold">
-            Service: <span className="font-normal">{ele.service}</span>
-          </h2>
-          <h2 className="font-bold">
-            Price: <span className="font-normal">₹{ele.price}</span>
-          </h2>
+      {services.length !== 0 &&
+        services.map((ele) => (
+          <div
+            className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center"
+            key={ele.services._id}
+          >
+            <h2 className="font-bold">
+              Service:{" "}
+              <span className="font-normal">{ele.services.service}</span>
+            </h2>
+            <h2 className="font-bold">
+              Price: <span className="font-normal">₹{ele.services.price}</span>
+            </h2>
+          </div>
+        ))}
+      {services.length === 0 && (
+        <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center">
+          <h1>No Services added Please add new services</h1>
+          <button
+            className="md:w-32 md:h-10 w-28 h-8 border border-gray-400 rounded bg-green-500 text-white"
+            onClick={showModal}
+          >
+            Add Service
+          </button>
         </div>
-      ))}
+      )}
     </div>
   );
 }

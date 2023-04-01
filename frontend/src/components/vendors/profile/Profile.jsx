@@ -65,7 +65,7 @@ function Profile() {
                 alt=""
                 className="md:w-full lg:w-48 min-[760px]:w-88"
               />
-              <h6>bussinessName</h6>
+              <h6>{vendor.bussinessName}</h6>
             </div>
           </div>
         </div>

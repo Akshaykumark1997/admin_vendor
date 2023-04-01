@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema;
 
 const serviceSchema = new Schema({
   service: {
@@ -9,6 +10,10 @@ const serviceSchema = new Schema({
   },
   price: {
     type: String,
+    required: true,
+  },
+  userId: {
+    type: ObjectId,
     required: true,
   },
 });
