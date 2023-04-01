@@ -58,11 +58,11 @@ function AddVendor() {
   return (
     <div className="w-full">
       <div className=" px-5 sm:p-10 max-w-[1500px] mx-auto box-border">
-        <div className="flex justify-center px-2 sm:px-4 md:px-2 my-12">
-          <div className="w-full xl:w-2/3 lg:w-3/4 flex h-[900px] rounded-lg px-2 shadow-lg border">
+        <div className="flex justify-center px-2 sm:px-4 md:px-2">
+          <div className="w-full xl:w-2/3 lg:w-3/4 flex h-[860px] rounded-lg px-2 shadow-lg border">
             <div className="w-full sm:w-11/12 md:w-3/5 bg-white py-5 px-2 lg:px-5 my-auto rounded-lg lg:rounded-l-none mx-auto">
               <h3 className="pt-4 md:text-2xl text-lg font-bold text-center">
-                Hi, Welcome back
+                Add Vendor
               </h3>
               <form
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"

@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("tokenAdmin");
+    navigate("/admin");
+  }
   return (
     <>
       <div className="flex">
-        <div className="bg-dark-purple min-h-screen p-5 h-[1200px]  pt-8 md:w-72 w-24 ">
+        <div className="bg-dark-purple min-h-screen p-5 h-[940px]  pt-8 md:w-72 w-24 ">
           <div className="md:pl-6 pl-2 md:text-2xl text-lg text-white">
             <h1>Admin</h1>
           </div>
@@ -26,7 +31,7 @@ function NavBar() {
                 alt="text"
                 className="hover:bg-light-white w-6"
               />
-              <span className="hidden md:block px-2">Logout</span>
+              <span className="hidden md:block px-2" onClick={handleLogout}>Logout</span>
             </li>
           </ul>
         </div>

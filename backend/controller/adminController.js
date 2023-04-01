@@ -9,7 +9,6 @@ dotenv.config();
 
 module.exports = {
   login: (req, res) => {
-    console.log(req.body);
     Admin.findOne({ email: req.body.email }).then((admin) => {
       if (!admin) {
         return res.status(404).json({
