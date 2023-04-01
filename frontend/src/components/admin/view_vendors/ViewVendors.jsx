@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../axios/Axios";
+import axios from "../../../axios/AdminAxios";
 
 function ViewVendors() {
   const [vendors, setVendors] = useState([]);

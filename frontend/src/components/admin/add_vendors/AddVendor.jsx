@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import Validate from "../../shared/register_validation/RegisterValidation";
-import axios from "../../../axios/Axios";
+import axios from "../../../axios/AdminAxios";
 import { message } from "antd";
 
 function AddVendor() {

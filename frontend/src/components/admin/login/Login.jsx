@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../axios/Axios";
 import { message } from "antd";
@@ -35,6 +36,12 @@ function Login() {
         });
     }
   };
+    useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if(token) {
+      navigate('/admin/dashboard');
+    }
+  },[])
   return (
     <div className="w-full">
       <div className="py-10 px-5 sm:p-10 max-w-[1500px] mx-auto box-border">

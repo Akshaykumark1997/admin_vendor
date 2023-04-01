@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../axios/Axios";
 import { message } from "antd";
@@ -37,6 +38,12 @@ function VendorLogin() {
         });
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("vendorToken");
+    if(token) {
+      navigate('/home');
+    }
+  },[])
   return (
     <div className="w-full">
       <div className="py-10 px-5 sm:p-10 max-w-[1500px] mx-auto box-border">

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validate from "../../shared/register_validation/RegisterValidation";
 import axios from "../../../axios/Axios";
@@ -56,6 +57,12 @@ function Registration() {
         });
     }
   };
+    useEffect(() => {
+    const token = localStorage.getItem("vendorToken");
+    if(token) {
+      navigate('/home');
+    }
+  },[])
   return (
     <div className="w-full">
       <div className=" px-5 sm:p-10 max-w-[1500px] mx-auto box-border">
