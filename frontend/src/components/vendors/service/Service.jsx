@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, message } from "antd";
 import Validate from "./ValidateService";
 import axios from "../../../axios/Axios";
 
 function Service() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [services, setServices] = useState([]);
   const [formValues, setFormValues] = useState({
     service: "",
     price: "",
@@ -41,6 +42,16 @@ function Service() {
         });
     }
   };
+  useEffect(() => {
+    axios
+      .get("/getServices")
+      .then((response) => {
+        setServices(response.data.services); 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [services]);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -84,14 +95,16 @@ function Service() {
           </div>
         </Modal>
       </div>
-      <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center">
-        <h2 className="font-bold">
-          Service: <span className="font-normal">Plumbing</span>
-        </h2>
-        <h2 className="font-bold">
-          Price: <span className="font-normal">₹500</span>
-        </h2>
-      </div>
+      {services.map((ele) => (
+        <div className="border border-gray-200 sm:m-10 flex justify-around h-28 items-center" key={ele._id}>
+          <h2 className="font-bold">
+            Service: <span className="font-normal">{ele.service}</span>
+          </h2>
+          <h2 className="font-bold">
+            Price: <span className="font-normal">₹{ele.price}</span>
+          </h2>
+        </div>
+      ))}
     </div>
   );
 }

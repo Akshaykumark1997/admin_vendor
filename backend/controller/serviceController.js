@@ -26,4 +26,19 @@ module.exports = {
         });
       });
   },
+  getServices: (req, res) => {
+    Service.find({})
+      .then((services) => {
+        res.json({
+          success: true,
+          services,
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          success: false,
+          error,
+        });
+      });
+  },
 };
