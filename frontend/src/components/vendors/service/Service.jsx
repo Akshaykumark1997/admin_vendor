@@ -1,17 +1,46 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
+import Validate from "./ValidateService";
+import axios from "../../../axios/Axios";
 
 function Service() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [formValues, setFormValues] = useState({
+    service: "",
+    price: "",
+  });
+  const [error, setError] = useState({});
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = (event) => {
+    event.preventDefault();
+    const errors = Validate(formValues);
+    if (Object.keys(errors).length !== 0) {
+      setError(errors);
+      console.log(errors);
+      if (error?.service) {
+        message.error(error?.service);
+      }
+      if (error?.price) {
+        message.error(error?.price);
+      }
+    } else {
+      axios
+        .post("/addService", formValues)
+        .then((response) => {
+          message.success(response.data.message);
+          setIsModalOpen(false);
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.message);
+        });
+    }
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -38,24 +67,20 @@ function Service() {
               type="text"
               placeholder="Service"
               name="service"
-              // onChange={handleChange}
-              // value={formValues.email}
+              onChange={handleChange}
+              value={formValues.email}
               className="form-control block mt-2  px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
             />
-            {/* {error && (
-                    <span className="text-red-600 block">{error.email}</span>
-                  )} */}
+            {error && <span className="text-red-600 block">{error.email}</span>}
             <input
               type="text"
               placeholder="Price"
               name="price"
-              // onChange={handleChange}
-              // value={formValues.email}
+              onChange={handleChange}
+              value={formValues.email}
               className="form-control block mt-2  px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border-2 border-solid  rounded transition ease-in-out m-0 border-gray-300 focus:text-gray-700  focus:border-red-600 focus:outline-none h-12"
             />
-            {/* {error && (
-                    <span className="text-red-600 block">{error.email}</span>
-                  )} */}
+            {error && <span className="text-red-600 block">{error.email}</span>}
           </div>
         </Modal>
       </div>

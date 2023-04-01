@@ -7,45 +7,42 @@ function Profile() {
         <div className="w-full md:w-[65%] min-[875px]:w-[85%]">
           <h1>Hi, Akshay</h1>
           <hr />
-          <div class="bg-slate-100  shadow-sm rounded-sm border-black my-10 ">
-            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-4">
-              <span clas="text-green-500">
+          <div className="bg-slate-100  shadow-sm rounded-sm border-black my-10 ">
+            <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-4">
+              <span className="text-gray-500">
                 <svg
-                  class="h-5"
+                  className="h-5"
                   xmlns="/image/user.png"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
               </span>
-              <span class="tracking-wide">About</span>
+              <span className="tracking-wide">About</span>
             </div>
-            <div class="text-gray-700 p-4">
-              <div class="grid lg:grid-cols-2 text-sm">
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">First Name</div>
-                  <div class="px-4 py-2 text-xs sm:text-sm">Jane</div>
+            <div className="text-gray-700 p-4">
+              <div className="grid lg:grid-cols-2 text-sm">
+                <div className="grid grid-cols-2">
+                  <div className="px-4 py-2 font-semibold">First Name</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">Jane</div>
                 </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Last Name</div>
-                  <div class="px-4 py-2 text-xs sm:text-sm">Doe</div>
+                <div className="grid grid-cols-2">
+                  <div className="px-4 py-2 font-semibold">Last Name</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">Doe</div>
                 </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Email</div>
-                  <div class="px-4 py-2 text-xs sm:text-sm break-words">
+                <div className="grid grid-cols-2">
+                  <div className="px-4 py-2 font-semibold">Email</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm break-words">
                     akshaykumar12@gmail.com
                   </div>
                 </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Contact No.</div>
-                  <div class="px-4 py-2 text-xs sm:text-sm">+11 998001001</div>
+                <div className="grid grid-cols-2">
+                  <div className="px-4 py-2 font-semibold">Contact No.</div>
+                  <div className="px-4 py-2 text-xs sm:text-sm">+11 998001001</div>
                 </div>
               </div>
             </div>
